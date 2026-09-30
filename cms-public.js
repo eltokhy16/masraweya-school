@@ -64,7 +64,6 @@
         cache:'no-store',
         headers:{
           apikey:cfg.anonKey,
-          Authorization:'Bearer '+cfg.anonKey,
           'Cache-Control':'no-cache'
         }
       });
