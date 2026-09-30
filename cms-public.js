@@ -1,81 +1,275 @@
 (function(){
-  const cfg=window.MASRAWEYA_SUPABASE||{};
-  const defaults=window.MASRAWEYA_DEFAULT_CONTENT||{};
-  const lang=localStorage.getItem('masraweya-lang')||'en';
-  window.MASRAWEYA_CMS={content:defaults,lang,ready:false};
+  const cfg = window.MASRAWEYA_SUPABASE || {};
+  const defaults = window.MASRAWEYA_DEFAULT_CONTENT || {};
+  const lang = localStorage.getItem('masraweya-lang') || 'en';
 
-  function merge(a,b){
-    if(!b||typeof b!=='object')return a;
+  window.MASRAWEYA_CMS = {
+    content: defaults,
+    lang,
+    ready: false
+  };
+
+  function merge(a, b){
+    if(!b || typeof b !== 'object') return a;
+
     for(const k of Object.keys(b)){
-      if(b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])) a[k]=merge(a[k]||{},b[k]);
-      else a[k]=b[k];
+      if(
+        b[k] &&
+        typeof b[k] === 'object' &&
+        !Array.isArray(b[k])
+      ){
+        a[k] = merge(a[k] || {}, b[k]);
+      }else{
+        a[k] = b[k];
+      }
     }
+
     return a;
   }
-  function get(obj,path){return path.split('.').reduce((o,k)=>o==null?undefined:o[k],obj)}
+
+  function get(obj, path){
+    return path
+      .split('.')
+      .reduce(
+        (o, k) => o == null ? undefined : o[k],
+        obj
+      );
+  }
 
   function apply(c){
-    window.MASRAWEYA_CMS.content=c;
-    document.documentElement.lang=lang;
-    document.documentElement.dir=lang==='ar'?'rtl':'ltr';
 
-    document.querySelectorAll('[data-cms]').forEach(el=>{
-      const v=get(c,el.dataset.cms);
-      if(v!=null) el.textContent=typeof v==='object'?(v[lang]??v.en??''):v;
-    });
+    window.MASRAWEYA_CMS.content = c;
 
-    document.querySelectorAll('[data-cms-image]').forEach(el=>{
-      const v=get(c,el.dataset.cmsImage);
-      if(v){
-        el.src=v;
-        el.removeAttribute('srcset');
-        el.dataset.cmsLoaded='true';
+    document.documentElement.lang = lang;
+    document.documentElement.dir =
+      lang === 'ar' ? 'rtl' : 'ltr';
+
+    /* =========================
+       TEXT CONTENT
+    ========================== */
+
+    document.querySelectorAll('[data-cms]').forEach(el => {
+
+      const v = get(c, el.dataset.cms);
+
+      if(v != null){
+
+        el.textContent =
+          typeof v === 'object'
+            ? (v[lang] ?? v.en ?? '')
+            : v;
       }
     });
 
-    document.querySelectorAll('[data-results-link]').forEach(el=>{
-      el.href=c.site?.resultsUrl||'#';
-      el.target='_blank';
-      el.rel='noopener';
+
+    /* =========================
+       CMS IMAGES
+    ========================== */
+
+    document.querySelectorAll('[data-cms-image]').forEach(el => {
+
+      const v = get(c, el.dataset.cmsImage);
+
+      if(v){
+
+        /*
+         * Remove browser-selected image sources
+         * so the CMS image becomes the only source.
+         */
+
+        el.removeAttribute('srcset');
+        el.removeAttribute('sizes');
+
+        /*
+         * Force the new CMS image.
+         */
+
+        el.src = v;
+
+        /*
+         * Mark element as loaded from CMS.
+         */
+
+        el.dataset.cmsLoaded = 'true';
+
+        /*
+         * Force browser to reload image.
+         */
+
+        el.setAttribute(
+          'data-cms-image-url',
+          v
+        );
+      }
     });
 
-    if(c.site?.name?.[lang]) document.querySelectorAll('[data-school-name]').forEach(e=>e.textContent=c.site.name[lang]);
-    if(c.site?.sub?.[lang]) document.querySelectorAll('[data-school-sub]').forEach(e=>e.textContent=c.site.sub[lang]);
 
-    window.MASRAWEYA_CMS.ready=true;
-    window.dispatchEvent(new CustomEvent('masraweya-cms-ready'));
+    /* =========================
+       RESULTS LINK
+    ========================== */
+
+    document.querySelectorAll('[data-results-link]').forEach(el => {
+
+      el.href = c.site?.resultsUrl || '#';
+
+      el.target = '_blank';
+
+      el.rel = 'noopener noreferrer';
+    });
+
+
+    /* =========================
+       SCHOOL NAME
+    ========================== */
+
+    if(c.site?.name?.[lang]){
+
+      document
+        .querySelectorAll('[data-school-name]')
+        .forEach(e => {
+          e.textContent = c.site.name[lang];
+        });
+    }
+
+
+    /* =========================
+       SCHOOL SUBTITLE
+    ========================== */
+
+    if(c.site?.sub?.[lang]){
+
+      document
+        .querySelectorAll('[data-school-sub]')
+        .forEach(e => {
+          e.textContent = c.site.sub[lang];
+        });
+    }
+
+
+    /* =========================
+       CMS READY EVENT
+    ========================== */
+
+    window.MASRAWEYA_CMS.ready = true;
+
+    window.dispatchEvent(
+      new CustomEvent('masraweya-cms-ready')
+    );
   }
+
 
   function applyWhenReady(c){
-    if(document.readyState==='loading'){
-      document.addEventListener('DOMContentLoaded',()=>apply(c),{once:true});
-    }else apply(c);
+
+    if(document.readyState === 'loading'){
+
+      document.addEventListener(
+        'DOMContentLoaded',
+        () => apply(c),
+        { once:true }
+      );
+
+    }else{
+
+      apply(c);
+    }
   }
+
+
+  /* =========================
+     LOAD CMS DATA
+  ========================== */
 
   async function load(){
-    if(!cfg.url||!cfg.anonKey){
+
+    if(!cfg.url || !cfg.anonKey){
+
+      console.warn(
+        'Masraweya CMS: Supabase configuration missing.'
+      );
+
       applyWhenReady(defaults);
+
       return;
     }
+
+
     try{
-      const endpoint=cfg.url+'/rest/v1/site_content?id=eq.1&select=content&_cms='+Date.now();
-      const r=await fetch(endpoint,{
-        method:'GET',
-        cache:'no-store',
-        headers:{
-          apikey:cfg.anonKey,
-          'Cache-Control':'no-cache'
+
+      /*
+       * Supabase REST endpoint.
+       *
+       * IMPORTANT:
+       * The publishable key is sent through
+       * "apikey" only.
+       *
+       * We intentionally DO NOT send:
+       * Authorization: Bearer ...
+       */
+
+      const endpoint =
+        cfg.url +
+        '/rest/v1/site_content' +
+        '?id=eq.1' +
+        '&select=content' +
+        '&_cms=' +
+        Date.now();
+
+
+      const response = await fetch(
+        endpoint,
+        {
+          method: 'GET',
+
+          cache: 'no-store',
+
+          headers: {
+            'apikey': cfg.anonKey,
+            'Cache-Control': 'no-cache'
+          }
         }
-      });
-      if(!r.ok) throw new Error('Supabase HTTP '+r.status);
-      const rows=await r.json();
-      const content=rows[0]?.content ? merge(structuredClone(defaults),rows[0].content) : defaults;
+      );
+
+
+      if(!response.ok){
+
+        throw new Error(
+          'Supabase HTTP ' +
+          response.status
+        );
+      }
+
+
+      const rows = await response.json();
+
+
+      const content =
+        rows[0]?.content
+          ? merge(
+              structuredClone(defaults),
+              rows[0].content
+            )
+          : defaults;
+
+
       applyWhenReady(content);
-    }catch(e){
-      console.warn('Masraweya CMS public load failed; using defaults.',e);
+
+
+    }catch(error){
+
+      console.warn(
+        'Masraweya CMS public load failed; using defaults.',
+        error
+      );
+
       applyWhenReady(defaults);
     }
   }
 
-  window.MASRAWEYA_CMS_READY=load();
+
+  /* =========================
+     START CMS
+  ========================== */
+
+  window.MASRAWEYA_CMS_READY = load();
+
 })();
