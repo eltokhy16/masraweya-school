@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Masraweya Admin Panel</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body.admin{background:#f3f6f8;color:#102331}
+.admin-wrap{min-height:100vh}
+.admin-top{background:#063b5c;color:#fff;padding:18px 0;position:sticky;top:0;z-index:20;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+.admin-top .container{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.admin-brand{display:flex;align-items:center;gap:12px}.admin-brand img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:10px}.admin-brand strong{display:block}.admin-brand span{font-size:10px;opacity:.65;letter-spacing:.12em}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap}.admin-actions button{border:0;border-radius:999px;padding:10px 15px;font-weight:700;cursor:pointer}
+.btn-red{background:#c8102e;color:#fff}.btn-white{background:#fff;color:#063b5c}
+.admin-layout{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 80px)}
+.admin-side{background:#fff;border-right:1px solid #e3e9ed;padding:22px 14px;position:sticky;top:80px;height:calc(100vh - 80px);overflow:auto}
+.admin-side button{display:block;width:100%;text-align:left;border:0;background:none;padding:12px 14px;border-radius:12px;margin-bottom:5px;color:#53616b;cursor:pointer;font-weight:700}
+.admin-side button.active,.admin-side button:hover{background:#eef4f7;color:#063b5c}
+.admin-main{padding:34px;max-width:1050px;width:100%}
+.admin-section{display:none}.admin-section.active{display:block}
+.admin-title h1{font-family:"Playfair Display",serif;font-size:48px;margin:0 0 8px;color:#063b5c}.admin-title p{color:#697781;margin:0 0 30px}
+.card{background:#fff;border:1px solid #e2e9ed;border-radius:20px;padding:24px;margin-bottom:18px;box-shadow:0 8px 30px rgba(6,59,92,.05)}
+.card h2{font-family:"Playfair Display",serif;color:#063b5c;margin:0 0 20px;font-size:28px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#687680}
+.field input,.field textarea,.field select{border:1px solid #d7e0e5;border-radius:12px;padding:12px 13px;font:inherit;outline:none;background:#fff}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field textarea:focus{border-color:#063b5c;box-shadow:0 0 0 3px rgba(6,59,92,.08)}
+.item-row{border:1px solid #e1e7eb;border-radius:14px;padding:16px;margin-bottom:10px}.item-row-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.danger{background:#fff0f2;color:#c8102e;border:0;border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:700}
+.notice{background:#eef7f1;border:1px solid #cce8d6;color:#21653c;padding:14px;border-radius:12px;margin-bottom:18px;display:none}
+.help{color:#6d7a83;font-size:12px;line-height:1.7}
+@media(max-width:820px){.admin-layout{grid-template-columns:1fr}.admin-side{position:static;height:auto;display:flex;overflow:auto;gap:6px;border-right:0;border-bottom:1px solid #e3e9ed}.admin-side button{min-width:max-content}.admin-main{padding:22px 16px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-title h1{font-size:40px}.admin-actions{justify-content:flex-end}}
+</style>
+</head>
+<body class="admin">
+<header class="admin-top"><div class="container">
+<div class="admin-brand"><img src="assets/masraweya-mark.jpg"><div><strong>Masraweya Admin</strong><span>WEBSITE CONTENT PANEL</span></div></div>
+<div class="admin-actions"><button class="btn-white" id="loadBtn">Reload</button><button class="btn-red" id="downloadBtn">Download Updated Content</button></div>
+</div></header>
+<div class="admin-layout">
+<aside class="admin-side">
+<button class="active" data-tab="hero">Hero</button><button data-tab="about">About</button><button data-tab="language">Academics</button><button data-tab="journey">Academic Journey</button><button data-tab="activities">Activities</button><button data-tab="results">Results</button><button data-tab="news">News</button><button data-tab="gallery">Gallery</button><button data-tab="contact">Contact</button><button data-tab="footer">Footer</button><button data-tab="settings">How to publish</button>
+</aside>
+<main class="admin-main">
+<div class="admin-title"><h1>Website Control Panel</h1><p>Edit the website content from one clear place. Save locally, preview, then publish the updated <b>content.json</b>.</p></div>
+<div class="notice" id="notice"></div>
+
+<section class="admin-section active" id="tab-hero"><div class="card"><h2>Hero Section</h2><div class="form-grid">
+<div class="field full"><label>Eyebrow</label><input data-path="hero.eyebrow"></div>
+<div class="field"><label>Title line 1</label><input data-path="hero.title1"></div><div class="field"><label>Title line 2</label><input data-path="hero.title2"></div>
+<div class="field full"><label>Description</label><textarea data-path="hero.description"></textarea></div>
+<div class="field"><label>Primary button</label><input data-path="hero.primaryText"></div><div class="field"><label>Primary link</label><input data-path="hero.primaryLink"></div>
+<div class="field"><label>Secondary button</label><input data-path="hero.secondaryText"></div><div class="field"><label>Secondary link</label><input data-path="hero.secondaryLink"></div>
+</div></div></section>
+
+<section class="admin-section" id="tab-about"><div class="card"><h2>About Section</h2><div class="form-grid">
+<div class="field"><label>Kicker</label><input data-path="about.kicker"></div><div class="field"><label>Button</label><input data-path="about.button"></div>
+<div class="field full"><label>Title</label><input data-path="about.title"></div>
+<div class="field full"><label>Short description</label><textarea data-path="about.description"></textarea></div>
+<div class="field full"><label>Paragraph 1</label><textarea data-path="about.paragraph1"></textarea></div>
+<div class="field full"><label>Paragraph 2</label><textarea data-path="about.paragraph2"></textarea></div>
+</div></div>
+<div class="card"><h2>School Pillars</h2><div id="pillars"></div></div></section>
+
+<section class="admin-section" id="tab-language"><div class="card"><h2>Language / Academics</h2><div class="form-grid">
+<div class="field"><label>Kicker</label><input data-path="language.kicker"></div><div class="field full"><label>Title</label><input data-path="language.title"></div>
+<div class="field full"><label>Description</label><textarea data-path="language.description"></textarea></div>
+<div class="field"><label>Word 1</label><input data-array="language.words.0"></div><div class="field"><label>Word 2</label><input data-array="language.words.1"></div>
+<div class="field"><label>Word 3</label><input data-array="language.words.2"></div><div class="field"><label>Word 4</label><input data-array="language.words.3"></div>
+</div></div></section>
+
+<section class="admin-section" id="tab-journey"><div class="card"><h2>Academic Journey</h2><div class="form-grid">
+<div class="field"><label>Kicker</label><input data-path="journey.kicker"></div><div class="field"><label>Title</label><input data-path="journey.title"></div><div class="field full"><label>Description</label><textarea data-path="journey.description"></textarea></div>
+</div><div id="journeyItems"></div></div></section>
+
+<section class="admin-section" id="tab-activities"><div class="card"><h2>Activities</h2><div class="form-grid"><div class="field"><label>Kicker</label><input data-path="activities.kicker"></div><div class="field"><label>Title</label><input data-path="activities.title"></div><div class="field full"><label>Description</label><textarea data-path="activities.description"></textarea></div></div><p class="help">The activity images are currently managed in the site files. We can connect an image library/upload system in the next step.</p></div></section>
+
+<section class="admin-section" id="tab-results"><div class="card"><h2>Student Results</h2><div class="form-grid"><div class="field"><label>Kicker</label><input data-path="results.kicker"></div><div class="field"><label>Button</label><input data-path="results.button"></div><div class="field full"><label>Title</label><input data-path="results.title"></div><div class="field full"><label>Description</label><textarea data-path="results.description"></textarea></div></div></div></section>
+
+<section class="admin-section" id="tab-news"><div class="card"><h2>News</h2><div class="form-grid"><div class="field"><label>Kicker</label><input data-path="news.kicker"></div><div class="field"><label>Title</label><input data-path="news.title"></div><div class="field full"><label>Description</label><textarea data-path="news.description"></textarea></div></div><p class="help">The current page contains demo news cards. We can turn this into a full news manager with add/edit/delete and image upload.</p></div></section>
+
+<section class="admin-section" id="tab-gallery"><div class="card"><h2>Gallery</h2><div class="form-grid"><div class="field"><label>Kicker</label><input data-path="gallery.kicker"></div><div class="field"><label>Title</label><input data-path="gallery.title"></div><div class="field full"><label>Description</label><textarea data-path="gallery.description"></textarea></div></div><p class="help">The current gallery uses the site's image files. We can add drag-and-drop image management after connecting storage.</p></div></section>
+
+<section class="admin-section" id="tab-contact"><div class="card"><h2>Contact</h2><div class="form-grid"><div class="field"><label>Kicker</label><input data-path="contact.kicker"></div><div class="field"><label>Title</label><input data-path="contact.title"></div><div class="field full"><label>Description</label><textarea data-path="contact.description"></textarea></div><div class="field"><label>Email</label><input data-path="contact.email"></div><div class="field"><label>Facebook</label><input data-path="contact.facebook"></div><div class="field"><label>Instagram</label><input data-path="contact.instagram"></div></div></div></section>
+
+<section class="admin-section" id="tab-footer"><div class="card"><h2>Footer</h2><div class="form-grid"><div class="field full"><label>Footer description</label><textarea data-path="footer.description"></textarea></div><div class="field full"><label>Copyright</label><input data-path="footer.copyright"></div></div></div></section>
+
+<section class="admin-section" id="tab-settings"><div class="card"><h2>طريقة النشر</h2>
+<p class="help">الموقع على GitHub Pages هو Static. لذلك لوحة التحكم لا تستطيع الكتابة مباشرة داخل ملفات GitHub من المتصفح بدون Backend. هذه النسخة مجهزة بنظام Content JSON: تعدّل المحتوى هنا ثم تضغط <b>Download Updated Content</b>، وبعدها تستبدل ملف <b>content.json</b> في GitHub. في الخطوة التالية أقدر أوصل اللوحة بقاعدة بيانات مجانية (Supabase) لتصبح التعديلات Live مباشرة بدون رفع ملفات يدويًا.</p>
+<div class="actions"><button class="btn btn-primary" id="saveLocal">Save Draft</button><button class="btn btn-primary" id="downloadBtn2">Download content.json</button></div>
+</div></section>
+</main></div>
+<script>
+let content={};
+const notice=document.getElementById('notice');
+const clone=o=>JSON.parse(JSON.stringify(o));
+function get(obj,path){return path.split('.').reduce((a,k)=>a?.[k],obj)}
+function set(obj,path,val){const keys=path.split('.');let cur=obj;keys.forEach((k,i)=>{if(i===keys.length-1)cur[k]=val;else cur=cur[k]??={}})}
+function show(msg){notice.textContent=msg;notice.style.display='block';setTimeout(()=>notice.style.display='none',2500)}
+function bind(){
+ document.querySelectorAll('[data-path]').forEach(el=>{el.value=get(content,el.dataset.path)??'';el.oninput=()=>set(content,el.dataset.path,el.value)})
+ document.querySelectorAll('[data-array]').forEach(el=>{el.value=get(content,el.dataset.array)??'';el.oninput=()=>set(content,el.dataset.array,el.value)})
+ renderArray('pillars',content.pillars,'pillars');
+ renderArray('journeyItems',content.journey?.items,'journey.items');
+}
+function renderArray(id,arr,path){
+ const box=document.getElementById(id); if(!box||!Array.isArray(arr))return; box.innerHTML='';
+ arr.forEach((item,i)=>{const row=document.createElement('div');row.className='item-row';row.innerHTML='<div class="item-row-head"><b>Item '+(i+1)+'</b></div><div class="form-grid"><div class="field"><label>Title</label><input></div><div class="field full"><label>Text</label><textarea></textarea></div></div>';const inputs=row.querySelectorAll('input,textarea');inputs[0].value=item.title||'';inputs[1].value=item.text||'';inputs[0].oninput=()=>content.pillars[i].title=inputs[0].value;inputs[1].oninput=()=>content.pillars[i].text=inputs[1].value;if(path==='journey.items'){inputs[0].oninput=()=>content.journey.items[i].title=inputs[0].value;inputs[1].oninput=()=>content.journey.items[i].text=inputs[1].value}box.appendChild(row)})
+}
+async function load(){try{const r=await fetch('content.json?ts='+Date.now());content=await r.json();bind()}catch(e){show('Could not load content.json')}}
+function download(){const blob=new Blob([JSON.stringify(content,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='content.json';a.click();URL.revokeObjectURL(a.href);show('Updated content.json downloaded.')}
+document.querySelectorAll('.admin-side button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.admin-side button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+b.dataset.tab).classList.add('active')});
+document.getElementById('loadBtn').onclick=load;document.getElementById('downloadBtn').onclick=download;document.getElementById('downloadBtn2').onclick=download;document.getElementById('saveLocal').onclick=()=>{localStorage.setItem('masraweyaDraft',JSON.stringify(content));show('Draft saved on this device.');};
+load();
+</script>
+</body></html>

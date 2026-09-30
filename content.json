@@ -1,0 +1,107 @@
+{
+  "site": {
+    "schoolName": "MASRAWEYA",
+    "schoolName2": "LANGUAGE SCHOOL",
+    "tagline": "Inspiring Minds. Building Futures.",
+    "year": "2026"
+  },
+  "hero": {
+    "eyebrow": "Masraweya Language School",
+    "title1": "Inspiring Minds.",
+    "title2": "Building Futures.",
+    "description": "A language-focused learning environment where knowledge, creativity, communication and character grow together.",
+    "primaryText": "Explore Our School",
+    "primaryLink": "#about",
+    "secondaryText": "Student Results",
+    "secondaryLink": "results.html"
+  },
+  "about": {
+    "kicker": "01 / Who We Are",
+    "title": "More than a school. A place to grow.",
+    "description": "Masraweya Language School brings together academic learning, language development and a rich school experience designed to help students discover their potential.",
+    "paragraph1": "We believe education is not only about what students learn, but also about how they think, communicate, collaborate and grow.",
+    "paragraph2": "Our learning environment is built around strong foundations, confident communication and meaningful experiences inside and beyond the classroom.",
+    "button": "Discover Masraweya"
+  },
+  "pillars": [
+    {
+      "title": "Confidence",
+      "text": "Helping students express ideas clearly and participate with confidence."
+    },
+    {
+      "title": "Creativity",
+      "text": "Learning experiences that encourage curiosity, imagination and exploration."
+    },
+    {
+      "title": "Communication",
+      "text": "Language development that connects classroom knowledge to real life."
+    },
+    {
+      "title": "Character",
+      "text": "Supporting responsibility, respect, collaboration and personal growth."
+    }
+  ],
+  "language": {
+    "kicker": "02 / Language Education",
+    "title": "Language is more than a subject.",
+    "description": "We create opportunities for students to use language as a tool for thinking, communicating, discovering and connecting with the world around them.",
+    "words": [
+      "SPEAK.",
+      "THINK.",
+      "COMMUNICATE.",
+      "CONNECT."
+    ]
+  },
+  "journey": {
+    "kicker": "03 / Academic Journey",
+    "title": "The journey starts here.",
+    "description": "A clear path across the school years, with age-appropriate learning experiences and opportunities for growth.",
+    "items": [
+      {
+        "title": "KG",
+        "text": "Early learning, discovery, communication and the foundations of confident learners."
+      },
+      {
+        "title": "Primary",
+        "text": "Building strong academic foundations while developing language and social skills."
+      },
+      {
+        "title": "Preparatory",
+        "text": "Deepening knowledge, independence, communication and readiness for the next stage."
+      }
+    ]
+  },
+  "activities": {
+    "kicker": "04 / Beyond The Classroom",
+    "title": "Learn. Play. Create.",
+    "description": "School life is full of moments that turn learning into experience."
+  },
+  "results": {
+    "kicker": "05 / Student Portal",
+    "title": "Your journey. Your achievement.",
+    "description": "Access student academic results through the dedicated Masraweya results portal.",
+    "button": "Check Student Results"
+  },
+  "news": {
+    "kicker": "06 / School Life",
+    "title": "What's happening at MLS.",
+    "description": "News, activities and moments from the school community."
+  },
+  "gallery": {
+    "kicker": "07 / Gallery",
+    "title": "Life at Masraweya.",
+    "description": "A visual glimpse into our school environment."
+  },
+  "contact": {
+    "kicker": "08 / Contact",
+    "title": "We would love to hear from you.",
+    "description": "Contact Masraweya Language School for admissions, visits and general enquiries.",
+    "email": "info@masraweya-school.com",
+    "facebook": "#",
+    "instagram": "#"
+  },
+  "footer": {
+    "description": "Language School<br>Inspiring Minds. Building Futures.",
+    "copyright": "© 2026 Masraweya Language School. All rights reserved."
+  }
+}

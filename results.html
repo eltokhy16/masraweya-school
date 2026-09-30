@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Results | Masraweya Language School</title><link rel="stylesheet" href="styles.css"></head><body>
+<div class="results-page"><div class="portal">
+<div class="portal-head"><img src="assets/masraweya-mark.jpg" alt="Masraweya Logo"><div><h1>Student Results</h1><p>MASRAWEYA LANGUAGE SCHOOL • 2026–2027</p></div></div>
+<div class="portal-body"><div class="kicker">Secure Student Access</div><h2>Check your results.</h2><p>Enter the student code provided by the school to access the academic results portal.</p>
+<div class="input-row"><input id="studentCode" placeholder="Enter Student Code" autocomplete="off"><button class="btn btn-primary" id="checkBtn">View Results →</button></div>
+<div class="demo-note">This front-end is ready to connect to the existing Google Sheets + Apps Script results backend.</div>
+<div class="portal-message" id="message"></div>
+<div style="overflow-x:auto"><table class="result-table" id="resultTable"><thead><tr><th>Student</th><th>Stage</th><th>Class</th><th>Subject</th><th>Result</th></tr></thead><tbody id="resultBody"></tbody></table></div>
+<a class="back-link" href="index.html">← Back to Masraweya website</a></div></div></div>
+<script>
+const RESULTS_WEB_APP_URL = ""; // Paste the existing Google Apps Script Web App URL here.
+const code = document.getElementById("studentCode");
+const btn = document.getElementById("checkBtn");
+const msg = document.getElementById("message");
+const table = document.getElementById("resultTable");
+const body = document.getElementById("resultBody");
+
+btn.addEventListener("click", async () => {
+  const studentCode = code.value.trim();
+  table.style.display="none"; body.innerHTML="";
+  if(!studentCode){ show("Please enter your student code."); return; }
+  if(!RESULTS_WEB_APP_URL){
+    show("The results interface is ready. We only need to connect the existing Google Apps Script Web App URL to make live results work.");
+    return;
+  }
+  try{
+    show("Loading results...");
+    const response = await fetch(RESULTS_WEB_APP_URL + "?code=" + encodeURIComponent(studentCode));
+    const data = await response.json();
+    if(!data || data.error){ show(data?.error || "No results found."); return; }
+    renderResults(data);
+  }catch(e){ show("Unable to load results right now. Please try again."); }
+});
+function show(t){msg.textContent=t;msg.style.display="block";}
+function renderResults(data){
+  msg.style.display="none";
+  const rows = Array.isArray(data.results) ? data.results : [];
+  if(!rows.length){ show("No results were found for this student code."); return; }
+  rows.forEach(r=>{
+    const tr=document.createElement("tr");
+    [data.studentName||"",data.stage||"",data.class||"",r.subject||"",r.result??""].forEach(v=>{
+      const td=document.createElement("td");td.textContent=v;tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+  table.style.display="table";
+}
+</script></body></html>
