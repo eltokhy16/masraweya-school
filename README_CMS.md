@@ -11,7 +11,7 @@ This version prepares a real CMS using Supabase Auth, Database and Storage, whil
    - `adminEmail`
 4. Open SQL Editor and run `supabase.sql`.
 5. Copy the Auth user's UUID and run the commented `insert into public.admin_users ...` line in `supabase.sql`.
-6. Create a PUBLIC Storage bucket named `school-media`.
+6. Create a PUBLIC Storage bucket named `site-images`.
 7. Commit the files to the GitHub repo connected to Cloudflare Pages. Cloudflare will automatically deploy the commit.
 
 ## Important

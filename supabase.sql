@@ -24,5 +24,5 @@ create policy "admins can read themselves" on public.admin_users for select usin
 -- After creating your Supabase Auth user, run:
 -- insert into public.admin_users (user_id) values ('YOUR-AUTH-USER-UUID');
 
--- Storage: create a PUBLIC bucket named school-media in Dashboard > Storage.
+-- Storage: create a PUBLIC bucket named site-images in Dashboard > Storage.
 -- Then add policies that allow authenticated admins to upload/update/delete objects.
