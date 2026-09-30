@@ -4,8 +4,6 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Masraweya CMS</title>
 <link rel="stylesheet" href="styles.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script><script src="cms-defaults.js"></script>
 <style>
 :root{--navy:#081b42;--red:#ef2b38;--ink:#13213d;--muted:#71809a;--line:#e5eaf2;--bg:#f4f7fb;--white:#fff}
 *{box-sizing:border-box}.cms-body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}.hidden{display:none!important}
@@ -15,6 +13,9 @@
 .media-item{border:1px dashed #cbd5e1;border-radius:15px;padding:14px}.media-item img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;background:#eef2f7;margin-top:10px}.upload-row{display:flex;gap:10px;align-items:center}.jsonbox{font-family:ui-monospace,monospace;font-size:12px;min-height:260px}.toast{position:fixed;right:22px;bottom:22px;background:var(--navy);color:#fff;padding:13px 18px;border-radius:12px;display:none}.toast.show{display:block}
 @media(max-width:900px){.cms-app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.side-nav{display:flex;overflow:auto}.side-nav button{white-space:nowrap}.side-bottom{position:static;margin-top:15px}.cards{grid-template-columns:1fr 1fr}.grid2,.grid3{grid-template-columns:1fr}.image-row{grid-template-columns:1fr}.main{padding:18px}.login-card{padding:28px}.login-card h1{font-size:40px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="cms-defaults.js"></script>
 </head>
 <body class="cms-body">
 <section id="loginView" class="cms-login"><div class="login-card"><div class="brand-row"><img src="assets/masraweya-mark.jpg"><div><strong>MASRAWEYA</strong><small>LANGUAGE SCHOOL</small></div></div><div class="eyebrow">SECURE ADMIN CMS</div><h1>Welcome back.</h1><p>Manage every section, image, result link and contact detail from one place.</p><form id="loginForm"><label>Admin email / login<input id="loginEmail" autocomplete="username" required></label><label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">Sign in →</button><div id="loginError" class="error"></div></form><div id="setupNote" class="setup-note hidden">Supabase is not configured yet. Add your project URL, anon key and admin email in <b>supabase-config.js</b>, create the Auth user, then add its UUID to <b>admin_users</b> using the supplied SQL.</div></div></section>
