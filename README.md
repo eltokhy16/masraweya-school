@@ -1,29 +1,26 @@
-# Masraweya Language School Website V4
+# Masraweya Language School — V5
 
-## What changed
-- Removed the homepage "Visit Us" section that contained the large school-building image.
-- Added `admin.html`, a clean control panel for editing the main website content.
-- Added `content.json` as the website content source.
-- Homepage reads editable content from `content.json`.
-- Admin panel can edit Hero, About, Language/Academics, Academic Journey, Activities, Results, News, Gallery, Contact and Footer content.
-- Responsive layout remains included.
+Creative redesign with:
+- English as default language + Arabic toggle
+- RTL support for Arabic
+- Animated reveal transitions
+- Parallax hero motion
+- Responsive mobile navigation
+- Creative cards, ticker, results portal block and visual sections
+- Student Results URL configuration
+- Contact/WhatsApp/email configuration
+- CMS-ready administration panel with image specifications and previews
 
-## Important about GitHub Pages
-GitHub Pages is a static host. A browser page cannot securely rewrite files inside your GitHub repository without an authenticated backend. Therefore this V4 panel includes:
-1. Edit content.
-2. Save a local draft.
-3. Download an updated `content.json`.
-4. Upload/replace `content.json` in GitHub Pages.
+## Deploy
+Upload the entire folder to Cloudflare Pages. No build command is required.
 
-### Admin URL
-After publishing to GitHub Pages:
-`https://YOUR-USERNAME.github.io/masraweya-school/admin.html`
+## Important
+`admin.html` is a CMS UI preview, not a secure online CMS yet. Connect Supabase Auth/Database/Storage before using it for real publishing.
 
-This is NOT a secure private admin login yet. Do not treat it as a protected CMS.
 
-## Recommended next upgrade
-For true live editing + secure login + image uploads while keeping hosting free, connect the panel to a free Supabase project:
-- Supabase Auth for admin login.
-- Supabase Database for content.
-- Supabase Storage for school photos.
-Then the admin panel can publish changes live without uploading files to GitHub.
+## Student Results Link
+The Student Results buttons use the configured URL in `config.js`. The Admin Panel also provides a Results URL field and stores an override in this browser via localStorage. For live publishing to every visitor, connect the panel to Supabase/CMS.
+
+
+### V10 Image Update
+Added a responsive image system across the site sections using school/learning/activity imagery. Images are loaded from Pexels remote URLs; replace them from the Admin Media Manager when the CMS is connected.
