@@ -16,3 +16,7 @@ This version prepares a real CMS using Supabase Auth, Database and Storage, whil
 
 ## Important
 The browser never receives a Supabase service-role key. Only the public anon/publishable key belongs in `supabase-config.js`; RLS controls write access.
+
+
+### V3 Auto-save
+Image fields now save to Supabase automatically after a successful upload. No separate Save click is required for Hero/About/Academics/School Life/Admissions image uploads.
