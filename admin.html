@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Masraweya Admin Panel</title><link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-shell admin-page">
+<div class="admin-login" id="adminLogin">
+  <div class="login-orbit"></div>
+  <div class="login-card">
+    <a class="login-brand" href="index.html"><img src="assets/masraweya-mark.jpg" alt="Masraweya"><span>MASRAWEYA<br><small>LANGUAGE SCHOOL</small></span></a>
+    <div class="login-kicker">SECURE ADMIN AREA</div>
+    <h1>Welcome back.</h1><p>Sign in to manage your school website.</p>
+    <form id="loginForm" autocomplete="off">
+      <label>Username<input id="loginUser" required autocomplete="username" placeholder="Enter username"></label>
+      <label>Password<div class="password-wrap"><input id="loginPass" type="password" required autocomplete="current-password" placeholder="Enter password"><button type="button" id="showPass">Show</button></div></label>
+      <button class="btn btn-primary admin-login-btn" type="submit">Sign in <span>→</span></button>
+      <div id="loginError" class="login-error" aria-live="polite"></div>
+    </form>
+    <div class="login-footer"><span>MASRAWEYA CMS</span><a href="index.html">← Website</a></div>
+  </div>
+</div>
+<div class="admin-app" id="adminApp" hidden>
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><img src="assets/masraweya-mark.jpg" alt=""><div><b>MASRAWEYA</b><small>ADMIN CMS</small></div></div>
+    <nav>
+      <button class="side-link active" data-section="overview">◈ <span>Overview</span></button>
+      <button class="side-link" data-section="site">✦ <span>Site Settings</span></button>
+      <button class="side-link" data-section="results">↗ <span>Student Results</span></button>
+      <button class="side-link" data-section="contact">⌁ <span>Contact</span></button>
+      <button class="side-link" data-section="media">▧ <span>Media Manager</span></button>
+      <button class="side-link" data-section="security">◉ <span>Security</span></button>
+    </nav>
+    <div class="admin-side-bottom"><a href="index.html">← View website</a><button id="logoutBtn">Log out</button></div>
+  </aside>
+  <main class="admin-content">
+    <header class="admin-top"><div><span class="admin-eyebrow">MASRAWEYA CMS / V6</span><h1 id="sectionTitle">Overview</h1></div><div class="admin-user"><span class="status-dot"></span><span id="currentUser">eltokhy</span></div></header>
+    <div class="admin-notice">Changes saved in this browser are available immediately on this device. For shared live editing across all visitors, connect the CMS to Supabase in the next deployment stage.</div>
+    <section class="dash-section active" id="section-overview"><div class="admin-stats"><div><span>Pages</span><b>09</b></div><div><span>Languages</span><b>EN / AR</b></div><div><span>Results</span><b>LIVE LINK</b></div><div><span>CMS</span><b>READY</b></div></div><div class="admin-welcome"><div><span>CONTROL ROOM</span><h2>Make every part of the school website feel like <em>Masraweya.</em></h2><p>Use the controls on the left to manage the results destination, contact details, media specifications and admin credentials.</p></div><div class="orbit-mark">MLS</div></div></section>
+    <section class="dash-section" id="section-site"><div class="panel-card"><div class="panel-head"><div><span>01 / SITE IDENTITY</span><h2>School identity</h2></div><button class="save-btn" data-save="general">Save changes</button></div><div class="form-grid"><label>School name — English<input id="schoolEn" value="MASRAWEYA LANGUAGE SCHOOL"></label><label>اسم المدرسة — العربية<input id="schoolAr" value="مدرسة مصراوية للغات"></label><label>Default language<select id="defaultLang"><option value="en" selected>English</option><option value="ar">العربية</option></select></label><label>Facebook URL<input id="facebookUrl" value="https://www.facebook.com/MasraweyaLanguageSchool"></label></div><div class="saved-note" id="generalStatus"></div></div></section>
+    <section class="dash-section" id="section-results"><div class="panel-card accent-panel"><div class="panel-head"><div><span>02 / STUDENT PORTAL</span><h2>Results destination</h2><p>Every Student Results button on the public website uses this URL.</p></div><span class="live-pill">● LIVE</span></div><label>Student Results URL<input id="resultsUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec"></label><div class="action-row"><button class="save-btn" data-save="results">Save results link</button><button class="btn btn-ghost" id="testResults">Test link ↗</button></div><div class="saved-note" id="resultsStatus"></div></div></section>
+    <section class="dash-section" id="section-contact"><div class="panel-card"><div class="panel-head"><div><span>03 / CONTACT</span><h2>How families reach you</h2></div><button class="save-btn" data-save="contact">Save contact</button></div><div class="form-grid"><label>Phone<input id="phone" placeholder="+20 ..."></label><label>WhatsApp<input id="whatsapp" placeholder="+20 ..."></label><label>Email<input id="email" type="email" placeholder="info@school.com"></label><label>Facebook<input id="facebookContact" placeholder="https://facebook.com/..."></label></div><div class="saved-note" id="contactStatus"></div></div></section>
+    <section class="dash-section" id="section-media"><div class="panel-card"><div class="panel-head"><div><span>04 / MEDIA MANAGER</span><h2>Images with the right dimensions</h2></div></div><div class="media-grid"><div class="media-box"><b>Hero / Building</b><strong>1600 × 900 px</strong><small>JPG / WebP · under 2 MB</small><input type="file" accept="image/*" data-preview="media1"><img id="media1" alt="preview"></div><div class="media-box"><b>News / Card</b><strong>1200 × 800 px</strong><small>JPG / WebP · under 1.5 MB</small><input type="file" accept="image/*" data-preview="media2"><img id="media2" alt="preview"></div><div class="media-box"><b>Gallery</b><strong>1400 × 1000 px</strong><small>JPG / WebP · under 2 MB</small><input type="file" accept="image/*" data-preview="media3"><img id="media3" alt="preview"></div></div><div class="saved-note">Preview only in this version. Cloud upload will be connected through Supabase Storage.</div></div></section>
+    <section class="dash-section" id="section-security"><div class="panel-card security-panel"><div class="panel-head"><div><span>05 / SECURITY</span><h2>Admin login</h2><p>Change the username and password used for this browser's admin panel.</p></div><span class="security-badge">LOCAL LOGIN</span></div><div class="credentials-box"><label>Current username<input id="currentUserField" autocomplete="off"></label><label>New username<input id="newUser" autocomplete="off" placeholder="New username"></label><label>New password<div class="password-wrap"><input id="newPass" type="password" autocomplete="new-password" placeholder="New password"><button type="button" class="show-new">Show</button></div></label><label>Confirm new password<input id="confirmPass" type="password" autocomplete="new-password" placeholder="Repeat password"></label></div><div class="action-row"><button class="save-btn" id="saveCredentials">Save login credentials</button></div><div class="saved-note" id="securityStatus"></div><div class="security-warning"><b>Important:</b> this browser-only login is suitable for the current prototype. It is not a server-side security system. For a production CMS, we should connect this screen to Supabase Auth, which stores password hashes and handles authentication securely. <a href="https://supabase.com/docs/guides/auth/passwords" target="_blank">Learn more ↗</a></div></div></section>
+  </main>
+</div>
+<script>
+(() => {
+  const DEFAULTS = { user: 'eltokhy', pass: '2277' };
+  const AUTH_KEY = 'masraweya-admin-auth-v2';
+  const SETTINGS_KEY = 'masraweya-admin-settings';
+  const SESSION_KEY = 'masraweya-admin-session-v2';
+  let memorySession = false;
+
+  const $ = (id) => document.getElementById(id);
+
+  function safeGet(storage, key) {
+    try { return storage.getItem(key); } catch (_) { return null; }
+  }
+  function safeSet(storage, key, value) {
+    try { storage.setItem(key, value); return true; } catch (_) { return false; }
+  }
+  function safeRemove(storage, key) {
+    try { storage.removeItem(key); } catch (_) {}
+  }
+  function readJSON(storage, key, fallback) {
+    const raw = safeGet(storage, key);
+    if (!raw) return fallback;
+    try { return JSON.parse(raw); } catch (_) { return fallback; }
+  }
+  function getAuth() {
+    const a = readJSON(window.localStorage, AUTH_KEY, null);
+    if (!a || typeof a.user !== 'string' || typeof a.pass !== 'string' || !a.user || !a.pass) return DEFAULTS;
+    return a;
+  }
+  function getSettings() { return readJSON(window.localStorage, SETTINGS_KEY, {}); }
+  function saveSettings(patch) {
+    return safeSet(window.localStorage, SETTINGS_KEY, JSON.stringify({ ...getSettings(), ...patch }));
+  }
+  function hasSession() {
+    return memorySession || safeGet(window.sessionStorage, SESSION_KEY) === '1';
+  }
+  function setSession() {
+    memorySession = true;
+    safeSet(window.sessionStorage, SESSION_KEY, '1');
+  }
+  function clearSession() {
+    memorySession = false;
+    safeRemove(window.sessionStorage, SESSION_KEY);
+  }
+  function showError(msg) { $('loginError').textContent = msg || ''; }
+
+  function loadPanel() {
+    const s = getSettings(), a = getAuth();
+    $('resultsUrl').value = s.resultsUrl || 'https://script.google.com/macros/s/AKfycbw6y9W7_-A7eXX86JyJVSbQ1QkHcywCxOI2W8etQXmj4hbG1TwfXEOnFWsW_1OOD9JD/exec';
+    $('phone').value = s.phone || '';
+    $('whatsapp').value = s.whatsapp || '';
+    $('email').value = s.email || '';
+    $('facebookContact').value = s.facebook || 'https://www.facebook.com/MasraweyaLanguageSchool';
+    $('schoolEn').value = s.schoolEn || 'MASRAWEYA LANGUAGE SCHOOL';
+    $('schoolAr').value = s.schoolAr || 'مدرسة مصراوية للغات';
+    $('defaultLang').value = s.defaultLang || 'en';
+    $('currentUserField').value = a.user;
+    $('currentUser').textContent = a.user;
+  }
+
+  function showApp() {
+    $('adminLogin').hidden = true;
+    $('adminApp').hidden = false;
+    loadPanel();
+  }
+
+  function loginNow(event) {
+    if (event) event.preventDefault();
+    const user = String($('loginUser').value || '').trim();
+    const pass = String($('loginPass').value || '');
+    const stored = getAuth();
+    const valid = (user === stored.user && pass === stored.pass) || (user === DEFAULTS.user && pass === DEFAULTS.pass);
+    if (valid) {
+      setSession();
+      showError('');
+      showApp();
+    } else {
+      showError('Incorrect username or password.');
+      $('loginPass').focus();
+    }
+    return false;
+  }
+
+  window.loginNow = loginNow;
+  $('loginForm').onsubmit = loginNow;
+  $('loginForm').addEventListener('submit', loginNow);
+
+  $('showPass').onclick = function () {
+    const x = $('loginPass');
+    x.type = x.type === 'password' ? 'text' : 'password';
+    this.textContent = x.type === 'password' ? 'Show' : 'Hide';
+  };
+  const showNew = document.querySelector('.show-new');
+  if (showNew) showNew.onclick = function () {
+    const x = $('newPass');
+    x.type = x.type === 'password' ? 'text' : 'password';
+    this.textContent = x.type === 'password' ? 'Show' : 'Hide';
+  };
+  $('logoutBtn').onclick = function () { clearSession(); location.reload(); };
+
+  const titles = { overview:'Overview', site:'Site Settings', results:'Student Results', contact:'Contact', media:'Media Manager', security:'Security' };
+  document.querySelectorAll('.side-link').forEach(b => b.onclick = function () {
+    document.querySelectorAll('.side-link').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.dash-section').forEach(x => x.classList.remove('active'));
+    $('section-' + b.dataset.section).classList.add('active');
+    $('sectionTitle').textContent = titles[b.dataset.section];
+  });
+
+  document.querySelector('[data-save="results"]').onclick = function () {
+    const u = $('resultsUrl').value.trim();
+    if (!/^https?:\/\//i.test(u)) return alert('Enter a valid URL starting with https://');
+    saveSettings({ resultsUrl: u }); $('resultsStatus').textContent = 'Saved ✓';
+  };
+  document.querySelector('[data-save="contact"]').onclick = function () {
+    saveSettings({ phone:$('phone').value.trim(), whatsapp:$('whatsapp').value.trim(), email:$('email').value.trim(), facebook:$('facebookContact').value.trim() });
+    $('contactStatus').textContent = 'Saved ✓';
+  };
+  document.querySelector('[data-save="general"]').onclick = function () {
+    saveSettings({ schoolEn:$('schoolEn').value.trim(), schoolAr:$('schoolAr').value.trim(), defaultLang:$('defaultLang').value, facebook:$('facebookUrl').value.trim() });
+    $('generalStatus').textContent = 'Saved ✓';
+  };
+  $('testResults').onclick = function () { const u = $('resultsUrl').value.trim(); if (/^https?:\/\//i.test(u)) location.href = u; };
+  $('saveCredentials').onclick = function () {
+    const cur = $('currentUserField').value.trim(), a = getAuth();
+    const nu = $('newUser').value.trim(), np = $('newPass').value, cp = $('confirmPass').value;
+    const status = $('securityStatus');
+    if (cur !== a.user) return status.textContent = 'Current username does not match.';
+    if (!nu || !np) return status.textContent = 'Enter a new username and password.';
+    if (np !== cp) return status.textContent = 'New passwords do not match.';
+    if (np.length < 6) return status.textContent = 'Use a password of at least 6 characters.';
+    if (!safeSet(window.localStorage, AUTH_KEY, JSON.stringify({ user:nu, pass:np }))) return status.textContent = 'Browser storage is blocked. Use the site through a local server.';
+    $('currentUserField').value = nu; $('newPass').value = ''; $('confirmPass').value = ''; $('newUser').value = '';
+    $('currentUser').textContent = nu; status.textContent = 'Credentials updated ✓ Log out and sign in again.';
+  };
+  document.querySelectorAll('input[type=file]').forEach(i => i.addEventListener('change', function () {
+    const f = this.files && this.files[0], img = $(this.dataset.preview); if (!f) return;
+    img.src = URL.createObjectURL(f); img.style.display = 'block';
+  }));
+
+  // If an old session exists, respect it; otherwise show login.
+  if (hasSession()) showApp();
+})();
+</script></body></html>

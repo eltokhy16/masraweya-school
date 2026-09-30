@@ -1,0 +1,26 @@
+{
+  "site": {
+    "name": {
+      "en": "MASRAWEYA",
+      "ar": "مصراوية"
+    },
+    "sub": {
+      "en": "LANGUAGE SCHOOL",
+      "ar": "للغات"
+    },
+    "tagline": {
+      "en": "Inspiring minds. Building futures.",
+      "ar": "نُلهم العقول... ونبني المستقبل."
+    },
+    "resultsUrl": "https://script.google.com/macros/s/AKfycbw6y9W7_-A7eXX86JyJVSbQ1QkHcywCxOI2W8etQXmj4hbG1TwfXEOnFWsW_1OOD9JD/exec",
+    "phone": "+20 100 000 0000",
+    "whatsapp": "+20 100 000 0000",
+    "email": "info@masraweya-school.com",
+    "address": {
+      "en": "Egypt",
+      "ar": "مصر"
+    },
+    "facebook": "https://www.facebook.com/MasraweyaLanguageSchool",
+    "instagram": "#"
+  }
+}
